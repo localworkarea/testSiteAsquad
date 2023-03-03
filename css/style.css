@@ -1355,7 +1355,7 @@ textarea:focus {
 }
 
 .main__title {
-  color: blue;
+  color: yellow;
   text-align: center;
 }
 
@@ -3223,10 +3223,6 @@ textarea:focus {
 
   .top-footer__item:not(:last-child) {
     margin-bottom: 3.875rem;
-  }
-
-  .integrations__content {
-    padding-bottom: 5.625rem;
   }
 
   .integrations__text {
