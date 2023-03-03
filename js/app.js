@@ -4071,17 +4071,6 @@
                 $is_typed_call = true;
             }
         }));
-        if (document.documentElement.clientWidth < 768) setScrollItem();
-        function setScrollItem() {
-            const manageBody = document.querySelector(".anim-manage__body");
-            const optionsBody = document.querySelector(".btns-options__body");
-            manageBody.scrollIntoView({
-                inline: "center"
-            });
-            optionsBody.scrollIntoView({
-                inline: "center"
-            });
-        }
         window["FLS"] = true;
         isWebp();
         addLoadedClass();
