@@ -808,7 +808,7 @@
                         tabActiveTitle.length ? tabActiveTitle[0].classList.remove("_tab-active") : null;
                         tabTitle.classList.add("_tab-active");
                         setTabsStatus(tabsBlock);
-                    }
+                    } else if (tabTitle.classList.contains("_tab-active")) document.querySelector(".technologies__btn_none").click();
                     e.preventDefault();
                 }
             }
@@ -3510,7 +3510,6 @@
             }
             scrollWatcherConstructor(items) {
                 if (items.length) {
-                    this.scrollWatcherLogging(`Прокинувся, стежу за об'єктами (${items.length})...`);
                     let uniqParams = uniqArray(Array.from(items).map((function(item) {
                         return `${item.dataset.watchRoot ? item.dataset.watchRoot : null}|${item.dataset.watchMargin ? item.dataset.watchMargin : "0px"}|${item.dataset.watchThreshold ? item.dataset.watchThreshold : 0}`;
                     })));
@@ -3530,16 +3529,13 @@
                         let configWatcher = this.getScrollWatcherConfig(paramsWatch);
                         this.scrollWatcherInit(groupItems, configWatcher);
                     }));
-                } else this.scrollWatcherLogging("Сплю, немає об'єктів для стеження. ZzzZZzz");
+                }
             }
             getScrollWatcherConfig(paramsWatch) {
                 let configWatcher = {};
-                if (document.querySelector(paramsWatch.root)) configWatcher.root = document.querySelector(paramsWatch.root); else if ("null" !== paramsWatch.root) this.scrollWatcherLogging(`Эмм... батьківського об'єкта ${paramsWatch.root} немає на сторінці`);
+                if (document.querySelector(paramsWatch.root)) configWatcher.root = document.querySelector(paramsWatch.root);
                 configWatcher.rootMargin = paramsWatch.margin;
-                if (paramsWatch.margin.indexOf("px") < 0 && paramsWatch.margin.indexOf("%") < 0) {
-                    this.scrollWatcherLogging(`йой, налаштування data-watch-margin потрібно задавати в PX або %`);
-                    return;
-                }
+                if (paramsWatch.margin.indexOf("px") < 0 && paramsWatch.margin.indexOf("%") < 0) return;
                 if ("prx" === paramsWatch.threshold) {
                     paramsWatch.threshold = [];
                     for (let i = 0; i <= 1; i += .005) paramsWatch.threshold.push(i);
@@ -3564,11 +3560,14 @@
                     if (targetElement.classList.contains("_header-hidden")) document.documentElement.classList.add("header-hidden");
                     if (targetElement.classList.contains("_header-black")) document.documentElement.classList.add("header-black");
                     if (targetElement.classList.contains("_header-white")) document.documentElement.classList.remove("header-black");
+                    if (targetElement.classList.contains("footer__bottom")) {
+                        const headerItem = document.querySelector(".header");
+                        headerItem.classList.add("hide-header");
+                    }
                     const animSlide = document.querySelector(".image-anim");
                     if (targetElement.classList.contains("main")) animSlide.classList.add("_anim-main");
                     if (targetElement.classList.contains("focus")) animSlide.classList.add("_anim-focus");
                     if (targetElement.classList.contains("integrations")) animSlide.classList.add("_anim-integrations");
-                    this.scrollWatcherLogging(`Я бачу ${targetElement.classList}, додав клас _watcher-view`);
                 } else {
                     targetElement.classList.contains("_watcher-view") ? targetElement.classList.remove("_watcher-view") : null;
                     if (targetElement.classList.contains("_header-hidden")) document.documentElement.classList.remove("header-hidden");
@@ -3576,7 +3575,10 @@
                     if (targetElement.classList.contains("focus")) animSlide.classList.remove("_anim-focus");
                     if (targetElement.classList.contains("integrations")) animSlide.classList.remove("_anim-integrations");
                     if (targetElement.classList.contains("main")) animSlide.classList.remove("_anim-main");
-                    this.scrollWatcherLogging(`Я не бачу ${targetElement.classList}, прибрав клас _watcher-view`);
+                    if (targetElement.classList.contains("footer__bottom")) {
+                        const headerItem = document.querySelector(".header");
+                        headerItem.classList.remove("hide-header");
+                    }
                 }
             }
             scrollWatcherOff(targetElement, observer) {
