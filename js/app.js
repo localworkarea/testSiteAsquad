@@ -3817,12 +3817,18 @@
                     touchmove: this.touchMove.bind(this),
                     touchcancel: this.touchUp.bind(this),
                     transitionEnd: this.transitionend.bind(this),
-                    click: this.clickBullets.bind(this)
+                    click: this.clickBullets.bind(this),
+                    clickblock: this.clickBlock.bind(this)
                 };
                 if (isMobile.iOS()) document.addEventListener("touchmove", (e => {
                     e.preventDefault();
                 }));
+                const chooseBlocks = document.querySelectorAll(".choose__block");
+                for (let index = 0; index < chooseBlocks.length; index++) chooseBlocks[index].addEventListener("click", this.events.clickblock);
                 this.setEvents();
+            }
+            clickBlock(e) {
+                this.switchingSection(6);
             }
             setEvents() {
                 this.wrapper.addEventListener("wheel", this.events.wheel);
