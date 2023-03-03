@@ -6,7 +6,7 @@
 	<meta charset="UTF-8">
 	<meta name="format-detection" content="telephone=no">
 	<!-- <style>body{opacity: 0;}</style> -->
-	<link rel="stylesheet" href="css/style.min.css?_v=20230303230509">
+	<link rel="stylesheet" href="css/style.min.css?_v=20230303233603">
 	<link rel="shortcut icon" href="favicon.ico">
 	<!-- <meta name="robots" content="noindex, nofollow"> -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -118,45 +118,103 @@
 						</div>
 						<div class="form__inputs">
 							<div class="form__item">
-								<label for="formName" class="form__label">Name</label>
-								<input id="formEName" type="text" name="name" placeholder="Adam Smith" class="form__input input">
-								<button class="reset-btn">
+								<label for="formName-1" class="form__label">Name</label>
+								<input id="formName-1" type="text" name="name" placeholder="Adam Smith" class="form__input">
+								<div class="reset-btn">
 									<img src="img/icons/x.svg" alt="reset">
-								</button>
+								</div>
 							</div>
-							<div class="form__item">
-								<label for="formPhone" class="form__label">Phone number</label>
-								<input id="formPhone" data-required="phone" data-validate type="text" name="phone" data-error="Required field" placeholder="+380 (99) 999-99-99" class="form__input">
-								<button class="reset-btn">
+							<div class="form__item item-form-phone">
+								<label for="phone_2" class="form__label">Phone number</label>
+								<input id="phone_2" data-required="phone" data-validate type="tel" placeholder="(99) 999-99-99" name="phone" data-error="Required field" class="form__input input-form-tel form-req">
+								<div class="reset-btn">
 									<img src="img/icons/x.svg" alt="reset">
-								</button>
+								</div>
 							</div>
 							<div class="form__item">
 								<label for="formEmail" class="form__label">Email</label>
-								<input id="formEmail" data-required="email" data-validate type="text" name="email" data-error="Required field" placeholder="once@said.earlier" class="form__input input input-reset">
-								<button class="reset-btn">
+								<input id="formEmail" data-required="email" data-validate type="text" name="email" data-error="Required field" placeholder="once@said.earlier" class="form__input form-req">
+								<div class="reset-btn">
 									<img src="img/icons/x.svg" alt="reset">
-								</button>
+								</div>
 							</div>
 							<div class="form__item">
 								<label for="formWebsite" class="form__label">Website</label>
-								<input id="formWebsite" data-required data-validate type="text" name="email" data-error="Required field" placeholder="evolve.io" class="form__input input">
-								<button class="reset-btn">
+								<input id="formWebsite" data-required data-validate type="text" name="email" data-error="Required field" placeholder="evolve.io" class="form__input form-req">
+								<div class="reset-btn">
 									<img src="img/icons/x.svg" alt="reset">
-								</button>
+								</div>
 							</div>
 						</div>
 						<div class="form__item">
 							<label for="formMessage" class="form__label">Leave us a message</label>
 							<textarea id="formMessage" name="message" class="form__input form-textarea" placeholder="On the road from the City of Skepticism, I had to pass through the Valley of Ambiguity"></textarea>
-							<button class="reset-btn">
+							<div class="reset-btn btn-reset-textarea">
 								<img src="img/icons/x.svg" alt="reset">
-							</button>
+							</div>
 						</div>
 					</div>
 					<div class="form__buttons">
 						<button data-close type="button" class="form__button form-btn btn-gray-light">Later</button>
-						<button type="submit" class="form__button form-btn btn-black">Submit</button>
+						<button id="btn-part-submit" type="submit" class="form__button form-btn btn-black">Submit</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+
+
+	<div id="form-demo" aria-hidden="true" class="popup-form">
+		<div class="popup-form__wrapper">
+			<div class="popup-form__content">
+				<form data-dev data-popup-message="#form-message" class="form" action="files/sendmail/sendmail.php" method="POST">
+					<div class="form__block">
+						<div class="form__head">
+							<div class="form__title form-title">Request a Demo</div>
+							<div class="form__subtitle">Fill out the form and we'll contact you about integrating your service</div>
+						</div>
+						<div class="form__inputs">
+							<div class="form__item">
+								<label for="formName" class="form__label">Name</label>
+								<input id="formName" type="text" name="name" placeholder="Adam Smith" class="form__input">
+								<div class="reset-btn">
+									<img src="img/icons/x.svg" alt="reset">
+								</div>
+							</div>
+							<div class="form__item item-form-phone">
+								<label for="phone" class="form__label">Phone number</label>
+								<input id="phone" data-required="phone" data-validate type="tel" placeholder="(99) 999-99-99" name="phone-1" data-error="Required field" class="form__input input-form-tel form-req">
+								<div class="reset-btn">
+									<img src="img/icons/x.svg" alt="reset">
+								</div>
+							</div>
+							<div class="form__item">
+								<label for="formEmail" class="form__label">Email</label>
+								<input id="formEmail" data-required="email" data-validate type="text" name="email" data-error="Required field" placeholder="once@said.earlier" class="form__input form-req">
+								<div class="reset-btn">
+									<img src="img/icons/x.svg" alt="reset">
+								</div>
+							</div>
+							<div class="form__item">
+								<label for="formWebsite" class="form__label">Website</label>
+								<input id="formWebsite" data-required data-validate type="text" name="email" data-error="Required field" placeholder="evolve.io" class="form__input form-req">
+								<div class="reset-btn">
+									<img src="img/icons/x.svg" alt="reset">
+								</div>
+							</div>
+						</div>
+						<div class="form__item">
+							<label for="formMessage" class="form__label">Leave us a message</label>
+							<textarea id="formMessage" name="message" class="form__input form-textarea" placeholder="On the road from the City of Skepticism, I had to pass through the Valley of Ambiguity"></textarea>
+							<div class="reset-btn btn-reset-textarea">
+								<img src="img/icons/x.svg" alt="reset">
+							</div>
+						</div>
+					</div>
+					<div class="form__buttons">
+						<button data-close type="button" class="form__button form-btn btn-gray-light">Later</button>
+						<button id="btn-req-submit" type="submit" class="form__button form-btn btn-black">Submit</button>
 					</div>
 				</form>
 			</div>
@@ -174,19 +232,7 @@
 			</div>
 		</div>
 	</div>
-
-	<!-- <div id="popup" aria-hidden="true" class="popup">
-	<div class="popup__wrapper">
-		<div class="popup__content">
-			<button data-close type="button" class="popup__close">Закрити</button>
-			<div class="popup__text">
-				Text
-			</div>
-		</div>
-	</div>
-</div> -->
-
-	<script src="js/app.min.js?_v=20230303230509"></script>
+	<script src="js/app.min.js?_v=20230303233603"></script>
 </body>
 
 </html>

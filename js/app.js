@@ -944,7 +944,6 @@
                 this.options.init ? this.initPopups() : null;
             }
             initPopups() {
-                this.popupLogging(`Прокинувся`);
                 this.eventsPopup();
             }
             eventsPopup() {
@@ -960,7 +959,7 @@
                             this._selectorOpen = true;
                             this.open();
                             return;
-                        } else this.popupLogging(`Йой, не заповнено атрибут у ${buttonOpen.classList}`);
+                        }
                         return;
                     }
                     const buttonClose = e.target.closest(`[${this.options.attributeCloseButton}]`);
@@ -1025,15 +1024,14 @@
                         this.isOpen = true;
                         setTimeout((() => {
                             this._focusTrap();
-                        }), 50);
+                        }), 1500);
                         this.options.on.afterOpen(this);
                         document.dispatchEvent(new CustomEvent("afterPopupOpen", {
                             detail: {
                                 popup: this
                             }
                         }));
-                        this.popupLogging(`Відкрив попап`);
-                    } else this.popupLogging(`Йой, такого попапу немає. Перевірте коректність введення. `);
+                    }
                 }
             }
             close(selectorValue) {
@@ -1045,7 +1043,6 @@
                         popup: this
                     }
                 }));
-                if (this.youTubeCode) if (this.targetOpen.element.querySelector(`[${this.options.youtubePlaceAttribute}]`)) this.targetOpen.element.querySelector(`[${this.options.youtubePlaceAttribute}]`).innerHTML = "";
                 this.previousOpen.element.classList.remove(this.options.classes.popupActive);
                 this.previousOpen.element.setAttribute("aria-hidden", "true");
                 if (!this._reopen) {
@@ -1066,8 +1063,7 @@
                 }));
                 setTimeout((() => {
                     this._focusTrap();
-                }), 50);
-                this.popupLogging(`Закрив попап`);
+                }), 1500);
             }
             _getHash() {
                 if (this.options.hashSettings.location) this.hash = this.targetOpen.selector.includes("#") ? this.targetOpen.selector : this.targetOpen.selector.replace(".", "#");
@@ -1144,6 +1140,8 @@
                 FLS(`[gotoBlock]: Юхуу...їдемо до ${targetBlock}`);
             } else FLS(`[gotoBlock]: Йой... Такого блоку немає на сторінці: ${targetBlock}`);
         };
+        document.getElementById("btn-part-submit").disabled = true;
+        document.getElementById("btn-req-submit").disabled = true;
         function formFieldsInit(options = {
             viewPass: false,
             autoHeight: false
@@ -1164,9 +1162,32 @@
                     if (!targetElement.hasAttribute("data-no-focus-classes")) {
                         targetElement.classList.remove("_form-focus");
                         targetElement.parentElement.classList.remove("_form-focus");
+                        document.getElementById("btn-part-submit").disabled = false;
+                        document.getElementById("btn-req-submit").disabled = false;
                     }
                     targetElement.hasAttribute("data-validate") ? formValidate.validateInput(targetElement) : null;
                 }
+            }));
+            const formBlocks = document.querySelectorAll(".form__block");
+            formBlocks.forEach((item => {
+                item.addEventListener("keyup", (function(e) {
+                    const targetElement = e.target;
+                    if (targetElement.value.length > 0) targetElement.parentElement.classList.add("_show-reset-btn"); else targetElement.parentElement.classList.remove("_show-reset-btn");
+                }));
+            }));
+            const itemFormPhone = document.querySelectorAll(".item-form-phone");
+            itemFormPhone.forEach((item => {
+                item.addEventListener("keyup", (function(e) {
+                    const targetElement = e.target;
+                    if (targetElement.value.length > 0) {
+                        const itemFormPhone = document.querySelectorAll(".item-form-phone");
+                        itemFormPhone.forEach((item => {
+                            item.classList.add("_show-reset-btn");
+                        }));
+                    } else itemFormPhone.forEach((item => {
+                        item.classList.remove("_show-reset-btn");
+                    }));
+                }));
             }));
         }
         let formValidate = {
@@ -1196,14 +1217,26 @@
                 return error;
             },
             addError(formRequiredItem) {
+                const itemFormPhone = document.querySelectorAll(".item-form-phone");
+                itemFormPhone.forEach((item => {
+                    item.classList.add("_form-error");
+                }));
                 formRequiredItem.classList.add("_form-error");
                 formRequiredItem.parentElement.classList.add("_form-error");
+                document.getElementById("btn-part-submit").disabled = true;
+                document.getElementById("btn-req-submit").disabled = true;
                 let inputError = formRequiredItem.parentElement.querySelector(".form__error");
                 if (inputError) formRequiredItem.parentElement.removeChild(inputError);
                 if (formRequiredItem.dataset.error) formRequiredItem.parentElement.insertAdjacentHTML("beforeend", `<div class="form__error">${formRequiredItem.dataset.error}</div>`);
             },
             removeError(formRequiredItem) {
+                const itemFormPhone = document.querySelectorAll(".item-form-phone");
+                itemFormPhone.forEach((item => {
+                    item.classList.remove("_form-error");
+                }));
                 formRequiredItem.classList.remove("_form-error");
+                document.getElementById("btn-part-submit").disabled = false;
+                document.getElementById("btn-req-submit").disabled = false;
                 formRequiredItem.parentElement.classList.remove("_form-error");
                 if (formRequiredItem.parentElement.querySelector(".form__error")) formRequiredItem.parentElement.removeChild(formRequiredItem.parentElement.querySelector(".form__error"));
             },
@@ -1216,6 +1249,8 @@
                         el.parentElement.classList.remove("_form-focus");
                         el.classList.remove("_form-focus");
                         formValidate.removeError(el);
+                        document.getElementById("btn-part-submit").disabled = true;
+                        document.getElementById("btn-req-submit").disabled = true;
                     }
                     let checkboxes = form.querySelectorAll(".checkbox__input");
                     if (checkboxes.length > 0) for (let index = 0; index < checkboxes.length; index++) {
@@ -1294,10 +1329,6 @@
                     }
                 }), 0);
                 formValidate.formClean(form);
-                formLogging(`Форму відправлено!`);
-            }
-            function formLogging(message) {
-                FLS(`[Форми]: ${message}`);
             }
         }
         function getWindow(node) {
