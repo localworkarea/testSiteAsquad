@@ -959,7 +959,7 @@
                             this._selectorOpen = true;
                             this.open();
                             return;
-                        }
+                        } else this.popupLogging(`Йой, не заповнено атрибут у ${buttonOpen.classList}`);
                         return;
                     }
                     const buttonClose = e.target.closest(`[${this.options.attributeCloseButton}]`);
@@ -1043,6 +1043,7 @@
                         popup: this
                     }
                 }));
+                if (this.youTubeCode) if (this.targetOpen.element.querySelector(`[${this.options.youtubePlaceAttribute}]`)) this.targetOpen.element.querySelector(`[${this.options.youtubePlaceAttribute}]`).innerHTML = "";
                 this.previousOpen.element.classList.remove(this.options.classes.popupActive);
                 this.previousOpen.element.setAttribute("aria-hidden", "true");
                 if (!this._reopen) {
@@ -1071,7 +1072,6 @@
             _openToHash() {
                 let classInHash = document.querySelector(`.${window.location.hash.replace("#", "")}`) ? `.${window.location.hash.replace("#", "")}` : document.querySelector(`${window.location.hash}`) ? `${window.location.hash}` : null;
                 const buttons = document.querySelector(`[${this.options.attributeOpenButton} = "${classInHash}"]`) ? document.querySelector(`[${this.options.attributeOpenButton} = "${classInHash}"]`) : document.querySelector(`[${this.options.attributeOpenButton} = "${classInHash.replace(".", "#")}"]`);
-                this.youTubeCode = buttons.getAttribute(this.options.youtubeAttribute) ? buttons.getAttribute(this.options.youtubeAttribute) : null;
                 if (buttons && classInHash) this.open(classInHash);
             }
             _setHash() {
@@ -1096,9 +1096,6 @@
             _focusTrap() {
                 const focusable = this.previousOpen.element.querySelectorAll(this._focusEl);
                 if (!this.isOpen && this.lastFocusEl) this.lastFocusEl.focus(); else focusable[0].focus();
-            }
-            popupLogging(message) {
-                this.options.logging ? FLS(`[Попапос]: ${message}`) : null;
             }
         }
         flsModules.popup = new Popup({});
@@ -3557,24 +3554,12 @@
             scrollWatcherIntersecting(entry, targetElement) {
                 if (entry.isIntersecting) {
                     !targetElement.classList.contains("_watcher-view") ? targetElement.classList.add("_watcher-view") : null;
-                    if (targetElement.classList.contains("_header-hidden")) document.documentElement.classList.add("header-hidden");
-                    if (targetElement.classList.contains("_header-black")) document.documentElement.classList.add("header-black");
-                    if (targetElement.classList.contains("_header-white")) document.documentElement.classList.remove("header-black");
                     if (targetElement.classList.contains("footer__bottom")) {
                         const headerItem = document.querySelector(".header");
                         headerItem.classList.add("hide-header");
                     }
-                    const animSlide = document.querySelector(".image-anim");
-                    if (targetElement.classList.contains("main")) animSlide.classList.add("_anim-main");
-                    if (targetElement.classList.contains("focus")) animSlide.classList.add("_anim-focus");
-                    if (targetElement.classList.contains("integrations")) animSlide.classList.add("_anim-integrations");
                 } else {
                     targetElement.classList.contains("_watcher-view") ? targetElement.classList.remove("_watcher-view") : null;
-                    if (targetElement.classList.contains("_header-hidden")) document.documentElement.classList.remove("header-hidden");
-                    const animSlide = document.querySelector(".image-anim");
-                    if (targetElement.classList.contains("focus")) animSlide.classList.remove("_anim-focus");
-                    if (targetElement.classList.contains("integrations")) animSlide.classList.remove("_anim-integrations");
-                    if (targetElement.classList.contains("main")) animSlide.classList.remove("_anim-main");
                     if (targetElement.classList.contains("footer__bottom")) {
                         const headerItem = document.querySelector(".header");
                         headerItem.classList.remove("hide-header");
@@ -3770,9 +3755,27 @@
             styleFade() {
                 for (let index = 0; index < this.sections.length; index++) {
                     const section = this.sections[index];
+                    const header = document.querySelector(".header");
+                    const imageAnim = document.querySelector(".image-anim");
                     if (index === this.activeSectionId) {
                         section.style.opacity = "1";
                         section.style.visibility = "visible";
+                        if (section.classList.contains("_header-hidden") && section.classList.contains("active-section")) header.classList.add("header-hidden");
+                        if (!section.classList.contains("_header-hidden") && section.classList.contains("active-section")) header.classList.remove("header-hidden");
+                        if (section.classList.contains("_header-black") && section.classList.contains("active-section")) document.documentElement.classList.add("header-black");
+                        if (!section.classList.contains("_header-black") && section.classList.contains("active-section")) document.documentElement.classList.remove("header-black");
+                        if (section.classList.contains("bg-black") && section.classList.contains("active-section")) document.documentElement.classList.add("bg-black");
+                        if (!section.classList.contains("bg-black") && section.classList.contains("active-section")) document.documentElement.classList.remove("bg-black");
+                        if (section.classList.contains("bg-blue") && section.classList.contains("active-section")) document.documentElement.classList.add("bg-blue");
+                        if (!section.classList.contains("bg-blue") && section.classList.contains("active-section")) document.documentElement.classList.remove("bg-blue");
+                        if (section.classList.contains("bg-gray") && section.classList.contains("active-section")) document.documentElement.classList.add("bg-gray");
+                        if (!section.classList.contains("bg-gray") && section.classList.contains("active-section")) document.documentElement.classList.remove("bg-gray");
+                        if (section.classList.contains("main") && section.classList.contains("active-section")) imageAnim.classList.add("_anim-main");
+                        if (!section.classList.contains("main") && section.classList.contains("active-section")) imageAnim.classList.remove("_anim-main");
+                        if (section.classList.contains("focus") && section.classList.contains("active-section")) imageAnim.classList.add("_anim-focus");
+                        if (!section.classList.contains("focus") && section.classList.contains("active-section")) imageAnim.classList.remove("_anim-focus");
+                        if (section.classList.contains("integrations") && section.classList.contains("active-section")) imageAnim.classList.add("_anim-integrations");
+                        if (!section.classList.contains("integrations") && section.classList.contains("active-section")) imageAnim.classList.remove("_anim-integrations");
                     } else {
                         section.style.opacity = "0";
                         section.style.visibility = "hidden";
