@@ -1986,6 +1986,11 @@ textarea:focus {
           align-items: center;
 }
 
+.awesome__body {
+  width: 100%;
+  max-width: 31.5625rem;
+}
+
 .awesome__title {
   text-align: center;
   max-width: 34.5rem;
