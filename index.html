@@ -10,12 +10,11 @@
 			opacity: 0;
 		}
 	</style>
-	<link rel="stylesheet" href="css/style.min.css?_v=20230308121104">
+	<link rel="stylesheet" href="css/style.min.css?_v=20230310104159">
 	<link rel="shortcut icon" href="favicon.ico">
 	<!-- <meta name="robots" content="noindex, nofollow"> -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<script src="https://unpkg.com/@lottiefiles/lottie-player@1.5.7/dist/lottie-player.js?_v=20230308121104"></script>
-
+	<script src="https://unpkg.com/@lottiefiles/lottie-player@1.5.7/dist/lottie-player.js?_v=20230310104159"></script>
 </head>
 
 <body>
@@ -46,7 +45,9 @@
 			</div>
 		</header>
 		<div class="image-anim">
-			<img src="img/animated.png" alt="image" class="image-anim__img">
+			<video loop autoplay class="image-anim__img">
+				<source src="img/first.mp4" type="video/mp4">
+			</video>
 		</div>
 		<main class="page">
 			<section data-fp-section class="main _header-hidden bg-black">
@@ -92,6 +93,10 @@
 
 			<section data-fp-section class="awesome bg-blue">
 				<div class="awesome__container">
+
+					<video loop autoplay src="img/first.mp4" type="video/mp4">
+					</video>
+
 					<div class="awesome__content">
 						<h2 class="awesome__title title-second">
 							<p class="awesome__title_line"><span class="anim-text">
@@ -105,9 +110,6 @@
 								</span>
 							</p>
 						</h2>
-						<div class="awesome__body">
-							<lottie-player style="width: 504px; height: 148px;" src="js/awesome_right.json" background="transparent" speed="1" loop autoplay mode="normal"></lottie-player>
-						</div>
 						<div class="awesome__mouse-wheel mouse-wheel">
 							<div class="mouse-wheel__body">
 								<img class="mouse-wheel__mouse" src="img/icons/mouse.svg" alt="mouse">
@@ -121,11 +123,15 @@
 				<div class="industries__container">
 					<div class="industries__block">
 						<div class="industries__body">
-							<h2 class="industries__title title-second">Across Industries</h2>
+							<h2 class="industries__title title-second"><span>Across</span> <span>Industries</span></h2>
 							<p class="industries__text text-second">
-								We use ready-made integrations
-								to accelerate your business expansion, adapting them to specific business needs.</p>
-							<p class="industries__text text-second">Plus, new payment integrations are completed several times faster</p>
+								<span class="anim-text">We use ready-made integrations</span>
+								<span class="anim-text">to accelerate your business</span>
+								<span class="anim-text">expansion, adapting them to</span>
+								<span class="anim-text">specific business needs.</span>
+								<span class="anim-text">Plus, new payment integrations</span>
+								<span class="anim-text">are completed several times faster</span>
+							</p>
 						</div>
 					</div>
 				</div>
@@ -135,21 +141,33 @@
 			</section>
 			<section data-fp-section class="choose bg-blue">
 				<div class="choose__container">
-					<h2 class="choose__title text-second">Choose your path:</h2>
-					<div class="choose__content">
-						<div class="choose__block">
-							<div class="choose__head">
-								<picture><source srcset="img/sections/section_6/spinner.webp" type="image/webp"><img src="img/sections/section_6/spinner.png" alt="logo" class="choose__img img-choose-one"></picture>
-								<h3 class="choose__subtitle subtitle-chose-one title-second">White Label</h3>
+					<h2 class="choose__title text-second"><span>Choose</span> <span>your</span> <span>path:</span></h2>
+					<div class="choose__content-wr">
+						<div class="choose__content">
+							<div class="choose__block">
+								<div class="choose__head">
+									<img src="img/icons/s-white.svg" alt="logo" class="choose__img img-choose-one">
+									<h3 class="choose__subtitle subtitle-chose-one title-second"><span>White</span> <span>Label</span></h3>
+								</div>
+								<div class="choose__text text-second text-choose-one">
+									<span>Leverage a <b>tailor-made payment</b></span>
+									<span><b>solution</b> to power your daily</span>
+									<span>operations with payments and</span>
+									<span>reduce development costs</span>
+								</div>
 							</div>
-							<div class="choose__text text-second">Leverage a <span>tailor-made payment solution</span> to power your daily operations with payments and reduce development costs</div>
-						</div>
-						<div class="choose__block">
-							<div class="choose__head">
-								<picture><source srcset="img/sections/section_6/spinner.webp" type="image/webp"><img src="img/sections/section_6/spinner.webp" alt="logo" class="choose__img img-choose-sec"></picture>
-								<h3 class="choose__subtitle subtitle-chose-two title-second">Payment Gateway</h3>
+							<div class="choose__block">
+								<div class="choose__head">
+									<img src="img/icons/s-white.svg" alt="logo" class="choose__img img-choose-sec">
+									<h3 class="choose__subtitle subtitle-chose-two title-second"><span>Payment</span> <span>Gateway</span></h3>
+								</div>
+								<div class="choose__text text-second text-choose-two">
+									<span><b>Become a proud partner of</b></span>
+									<span><b>ours,</b> then accept payments</span>
+									<span>and make payouts in a secure</span>
+									<span>efficient way</span>
+								</div>
 							</div>
-							<div class="choose__text text-second"><span>Become a proud partner of ours,</span> then accept payments and make payouts in a secure and efficient way</div>
 						</div>
 					</div>
 				</div>
@@ -800,7 +818,7 @@
 		}
 
 		.loaded body {
-			transition: opacity 0.7s ease 0s, background-color 0.3s ease 0s;
+			transition: opacity 0.8s ease 0s, background-color 0.3s ease 0s;
 			opacity: 1;
 			visibility: visible;
 		}
@@ -848,6 +866,7 @@
 			.fls-preloader__images {
 				width: 40px;
 				height: 40px;
+				animation: spinner 0.3s linear 0.3s infinite normal none;
 			}
 
 			/* Блок з лічильником */
@@ -863,12 +882,14 @@
 				color: #BCCCD1;
 			}
 
-			@keyframes pre-spinner {
-				0% {}
+			@keyframes spinner {
+				0% {
+					transform: rotate(0deg);
+				}
 
-				50% {}
-
-				100% {}
+				100% {
+					transform: rotate(360deg);
+				}
 			}
 
 			@media (max-width: 479.98px) {
@@ -961,7 +982,7 @@
 			preloader();
 		</script>
 	</div>
-	<script src="js/app.min.js?_v=20230308121104"></script>
+	<script src="js/app.min.js?_v=20230310104159"></script>
 </body>
 
 </html>
